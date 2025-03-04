@@ -6,7 +6,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [selectedAI, setSelectedAI] = useState("together"); // Default to Together AI
-  const [isTyping, setIsTyping] = useState(false); //Typing state
+  const [isTyping, setIsTyping] = useState(false); // Typing state
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -21,7 +21,8 @@ const Chatbot = () => {
     const newMessages = [...messages, { text: input, sender: "user" }];
     setMessages(newMessages);
     setInput("");
-    setIsTyping(true);
+    setIsTyping(true); // Show typing indicator
+
     try {
       let apiUrl = "";
       let requestData = {};
@@ -63,11 +64,23 @@ const Chatbot = () => {
         },
       });
 
-      const botResponse =
-        selectedAI === "together" || selectedAI === "fireworks"
-          ? response.data.choices[0].message.content.trim()
-          : response.data[0]?.generated_text?.trim() ||
-            "Sorry, I couldn't understand that.";
+      let botResponse = "Sorry, I couldn't understand that."; // Default fallback
+
+      if (selectedAI === "together" || selectedAI === "fireworks") {
+        // Ensure we extract the message content correctly
+        if (
+          response.data &&
+          response.data.choices &&
+          response.data.choices.length > 0
+        ) {
+          botResponse = response.data.choices[0].message.content.trim();
+        }
+      } else if (selectedAI === "huggingface") {
+        // Hugging Face responses are structured differently
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          botResponse = response.data[0]?.generated_text?.trim() || botResponse;
+        }
+      }
 
       setMessages((prevMessages) => [
         ...prevMessages,

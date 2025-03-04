@@ -1,70 +1,214 @@
-# Getting Started with Create React App
+# 🚀 AI Chatbot with Multiple AI Models (React + Bootstrap)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Chatbot Preview](https://himkalp.in/wp-content/uploads/2025/03/chatbot.png)
 
-## Available Scripts
+A powerful **React-based AI Chatbot** that supports **multiple AI models** (Together AI, Fireworks AI, and Hugging Face). This chatbot features **real-time streaming**, a **typing indicator**, and a **simple UI** built with **Bootstrap**.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## **🔹 Features**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+✔ **Multi-Model Support**: Choose between **Together AI, Fireworks AI, and Hugging Face**  
+✔ **Real-Time Streaming**: AI responses appear **word-by-word** for a realistic chat experience  
+✔ **Typing Indicator**: Shows **"Bot is typing..."** while waiting for a response  
+✔ **Bootstrap UI**: Simple and responsive design  
+✔ **API Key Management**: Uses environment variables for security
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## **📌 Demo**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- Add a link to a live demo if hosted -->
 
-### `npm run build`
+Try it live here: **[Live Demo](https://your-demo-link.com)**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## **🔧 Installation**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **1️⃣ Clone the Repository**
 
-### `npm run eject`
+```sh
+git clone https://github.com/amankkamboj/ai-chatbot.git
+cd ai-chatbot
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+````
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **2️⃣ Install Dependencies**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **3️⃣ Set Up Environment Variables**
 
-## Learn More
+Create a `.env` file in the project root and add your API keys:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+REACT_APP_TOGETHER_AI_KEY=your_together_ai_api_key
+REACT_APP_FIREWORKS_API_KEY=your_fireworks_api_key
+REACT_APP_HUGGINGFACE_API_KEY=your_huggingface_api_key
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Get API Keys from:**
 
-### Code Splitting
+- 🔹 [Together AI](https://together.ai/)
+- 🔹 [Fireworks AI](https://fireworks.ai/)
+- 🔹 [Hugging Face](https://huggingface.co/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## **🚀 Run the Chatbot**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+npm start
+```
 
-### Making a Progressive Web App
+The chatbot will be available at:
+🔗 `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## **🛠️ How It Works**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### **1️⃣ Select AI Model**
 
-### Deployment
+Choose from:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- 🔹 **Together AI (DeepSeek-R1)**
+- 🔹 **Fireworks AI (LLaMA 2-13B)**
+- 🔹 **Hugging Face (Flan-T5 Large)**
 
-### `npm run build` fails to minify
+### **2️⃣ Type a Message**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The bot will show **"Typing..."** while generating a response.
+- If **Together AI is selected**, the response is **streamed word-by-word**.
+- The final AI-generated response is displayed.
+
+---
+
+## **📝 Code Explanation**
+
+### **🔹 `Chatbot.js` (Main Component)**
+
+- **Handles user input** and **sends API requests**.
+- **Displays responses** from the selected AI model.
+- **Manages typing indicator and streaming responses**.
+
+```javascript
+const [messages, setMessages] = useState([]);
+const [input, setInput] = useState("");
+const [selectedAI, setSelectedAI] = useState("together");
+const [isTyping, setIsTyping] = useState(false);
+```
+
+---
+
+### **🔹 AI API Calls**
+
+Each AI model has **different response formats**, so we handle them correctly.
+
+#### **Together AI (DeepSeek-R1)**
+
+- Uses **real-time streaming** for better UX.
+- API: `https://api.together.xyz/v1/chat/completions`
+
+```javascript
+{
+  model: "deepseek-ai/DeepSeek-R1",
+  messages: [{ role: "user", content: input }],
+  stream: true
+}
+```
+
+#### **Fireworks AI (LLaMA 2-13B)**
+
+- API: `https://api.fireworks.ai/inference/v1/completions`
+
+```javascript
+{
+  model: "accounts/fireworks/models/llama-v2-13b-chat",
+  prompt: input,
+  max_tokens: 100
+}
+```
+
+#### **Hugging Face (Flan-T5 Large)**
+
+- API: `https://api-inference.huggingface.co/models/google/flan-t5-large`
+
+```javascript
+{
+  inputs: input;
+}
+```
+
+---
+
+## **🎨 UI Design**
+
+- Built with **React Bootstrap** for a clean and responsive UI.
+- **Typing Indicator** shows an animated **spinner** while waiting for AI response.
+
+```jsx
+{
+  isTyping && (
+    <div className="text-start text-muted">
+      <Spinner animation="grow" size="sm" /> Bot is typing...
+    </div>
+  );
+}
+```
+
+---
+
+## **📌 Future Enhancements**
+
+🔹 **Support more AI models** (e.g., OpenAI GPT, Cohere)
+🔹 **Add voice input & text-to-speech**
+🔹 **Dark mode support**
+🔹 **Host on Vercel or Netlify**
+
+---
+
+## **🙌 Contributing**
+
+1. **Fork the repo**
+2. **Create a feature branch** (`git checkout -b feature-name`)
+3. **Commit your changes** (`git commit -m "Added new feature"`)
+4. **Push to GitHub** (`git push origin feature-name`)
+5. **Open a Pull Request**
+
+---
+
+## **📜 License**
+
+This project is **open-source** under the **MIT License**.
+
+---
+
+## **📞 Contact**
+
+💡 Created by [**Aman Kamboj**]
+📧 Email: **amankamboj2387@gmail.com**
+🔗 GitHub: [**https://github.com/amankkamboj/**]
+🔗 LinkedIn: [**https://www.linkedin.com/in/freelancer-aman-webdeveloper/**]
+
+---
+
+```
+
+---
+
+### **🎯 Why This `README.md` is Awesome**
+✅ **Beginner-Friendly**: Step-by-step guide from setup to deployment
+✅ **Technical & Clear**: Covers **installation, API handling, UI, & enhancements**
+✅ **Professional Standards**: Uses GitHub best practices
+✅ **Encourages Collaboration**: Clear **contribution guidelines**
+```
+
+```
+
+```
+````
