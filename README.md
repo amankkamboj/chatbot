@@ -35,21 +35,21 @@ cd ai-chatbot
 
 ````
 
-### **2️⃣ Install Dependencies**
+ **2️⃣ Install Dependencies**
 
 ```sh
 npm install
-```
 
-### **3️⃣ Set Up Environment Variables**
+
+ **3️⃣ Set Up Environment Variables**
 
 Create a `.env` file in the project root and add your API keys:
 
-```sh
+
 REACT_APP_TOGETHER_AI_KEY=your_together_ai_api_key
 REACT_APP_FIREWORKS_API_KEY=your_fireworks_api_key
 REACT_APP_HUGGINGFACE_API_KEY=your_huggingface_api_key
-```
+
 
 **Get API Keys from:**
 
@@ -59,20 +59,20 @@ REACT_APP_HUGGINGFACE_API_KEY=your_huggingface_api_key
 
 ---
 
-## **🚀 Run the Chatbot**
+ **🚀 Run the Chatbot**
 
-```sh
+
 npm start
-```
+
 
 The chatbot will be available at:
 🔗 `http://localhost:3000`
 
 ---
 
-## **🛠️ How It Works**
+**🛠️ How It Works**
 
-### **1️⃣ Select AI Model**
+ **1️⃣ Select AI Model**
 
 Choose from:
 
@@ -80,7 +80,7 @@ Choose from:
 - 🔹 **Fireworks AI (LLaMA 2-13B)**
 - 🔹 **Hugging Face (Flan-T5 Large)**
 
-### **2️⃣ Type a Message**
+ **2️⃣ Type a Message**
 
 - The bot will show **"Typing..."** while generating a response.
 - If **Together AI is selected**, the response is **streamed word-by-word**.
@@ -88,41 +88,41 @@ Choose from:
 
 ---
 
-## **📝 Code Explanation**
+ **📝 Code Explanation**
 
-### **🔹 `Chatbot.js` (Main Component)**
+ **🔹 `Chatbot.js` (Main Component)**
 
 - **Handles user input** and **sends API requests**.
 - **Displays responses** from the selected AI model.
 - **Manages typing indicator and streaming responses**.
 
-```javascript
+javascript
 const [messages, setMessages] = useState([]);
 const [input, setInput] = useState("");
 const [selectedAI, setSelectedAI] = useState("together");
 const [isTyping, setIsTyping] = useState(false);
-```
 
----
 
-### **🔹 AI API Calls**
+
+
+ **🔹 AI API Calls**
 
 Each AI model has **different response formats**, so we handle them correctly.
 
-#### **Together AI (DeepSeek-R1)**
+ **Together AI (DeepSeek-R1)**
 
 - Uses **real-time streaming** for better UX.
 - API: `https://api.together.xyz/v1/chat/completions`
 
-```javascript
+
 {
   model: "deepseek-ai/DeepSeek-R1",
   messages: [{ role: "user", content: input }],
   stream: true
 }
-```
 
-#### **Fireworks AI (LLaMA 2-13B)**
+
+ **Fireworks AI (LLaMA 2-13B)**
 
 - API: `https://api.fireworks.ai/inference/v1/completions`
 
@@ -134,11 +134,11 @@ Each AI model has **different response formats**, so we handle them correctly.
 }
 ```
 
-#### **Hugging Face (Flan-T5 Large)**
+ **Hugging Face (Flan-T5 Large)**
 
 - API: `https://api-inference.huggingface.co/models/google/flan-t5-large`
 
-```javascript
+
 {
   inputs: input;
 }
@@ -146,12 +146,12 @@ Each AI model has **different response formats**, so we handle them correctly.
 
 ---
 
-## **🎨 UI Design**
+ **🎨 UI Design**
 
 - Built with **React Bootstrap** for a clean and responsive UI.
 - **Typing Indicator** shows an animated **spinner** while waiting for AI response.
 
-```jsx
+
 {
   isTyping && (
     <div className="text-start text-muted">
@@ -159,11 +159,9 @@ Each AI model has **different response formats**, so we handle them correctly.
     </div>
   );
 }
-```
 
----
 
-## **📌 Future Enhancements**
+ **📌 Future Enhancements**
 
 🔹 **Support more AI models** (e.g., OpenAI GPT, Cohere)
 🔹 **Add voice input & text-to-speech**
@@ -172,7 +170,7 @@ Each AI model has **different response formats**, so we handle them correctly.
 
 ---
 
-## **🙌 Contributing**
+ **🙌 Contributing**
 
 1. **Fork the repo**
 2. **Create a feature branch** (`git checkout -b feature-name`)
@@ -182,33 +180,16 @@ Each AI model has **different response formats**, so we handle them correctly.
 
 ---
 
-## **📜 License**
+ **📜 License**
 
 This project is **open-source** under the **MIT License**.
 
 ---
 
-## **📞 Contact**
+ **📞 Contact**
 
 💡 Created by [**Aman Kamboj**]
 📧 Email: **amankamboj2387@gmail.com**
 🔗 GitHub: [**https://github.com/amankkamboj/**]
 🔗 LinkedIn: [**https://www.linkedin.com/in/freelancer-aman-webdeveloper/**]
-
----
-
-```
-
----
-
-### **🎯 Why This `README.md` is Awesome**
-✅ **Beginner-Friendly**: Step-by-step guide from setup to deployment
-✅ **Technical & Clear**: Covers **installation, API handling, UI, & enhancements**
-✅ **Professional Standards**: Uses GitHub best practices
-✅ **Encourages Collaboration**: Clear **contribution guidelines**
-```
-
-```
-
-```
 ````
